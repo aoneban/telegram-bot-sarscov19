@@ -33,7 +33,7 @@ bot.on('text', async (ctx) => {
     ctx.reply(formatData);
   } catch {
     console.log('Ошибка');
-    ctx.reply('Ошибка, такой страны не существует! Посмотрите /help');
+    ctx.reply('Ошибка, такой страны не существует! Чтобы увидеть список доступных стран нажмите здесь /help');
   }
 });
 bot.launch();
