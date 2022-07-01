@@ -5,10 +5,20 @@ const M = require('telegraf-markup4');
 const COUNTRIES_LIST = require('./constant');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
+const mName = ctx.message.from.first_name;
+
+function myName (name) {
+  if (name == undefined) {
+    return 'уважаемый'
+  } else {
+    return ctx.message.from.first_name;
+  }
+}
+
 bot.start((ctx) =>
   ctx.reply(
     `
-Привет ${ctx.message.from.id}!
+Привет ${myName(mName)}!
 Узнай статистику по коронавирусу.
 Введи название страны.
 Весь список стран можно узнать по команде /help
