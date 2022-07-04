@@ -8,10 +8,10 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.start((ctx) =>
   ctx.reply(
     `
-Привет ${ctx.message.from.first_name}!
-Узнай статистику по коронавирусу.
-Введи название страны.
-Весь список стран можно узнать по команде /help
+Hello ${ctx.message.from.first_name}!
+Get statistics on coronavirus.
+Enter country name.
+The entire list of countries can be found by command /help
 `,
 M.keyboard.reply([
       ['Belarus', 'Ukraine'],
@@ -25,16 +25,16 @@ bot.on('text', async (ctx) => {
   try {
     data = await api.getReportsByCountries(ctx.message.text);
     const formatData = `
-Страна: ${data[0][0].country}
-Случаи: ${data[0][0].cases}
-Умерло: ${data[0][0].deaths}
-Выздоровело: ${data[0][0].recovered}
+Country: ${data[0][0].country}
+Cases: ${data[0][0].cases}
+Died: ${data[0][0].deaths}
+Recovered: ${data[0][0].recovered}
   `;
     ctx.reply(formatData);
   } catch {
-    console.log('Ошибка');
-    ctx.reply('Ошибка. Нет такой страны. Чтобы увидеть список доступных стран нажмите здесь /help');
+    console.log('Error');
+    ctx.reply('Error. Нет такой страны. There is no such country. To see the list of available countries click here /help');
   }
 });
 bot.launch();
-console.log('Бот уже запущен!');
+console.log('The bot is already running!');
