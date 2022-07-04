@@ -33,7 +33,7 @@ Recovered: ${data[0][0].recovered}
     ctx.reply(formatData);
   } catch {
     console.log('Error');
-    ctx.reply('Error. Нет такой страны. There is no such country. To see the list of available countries click here /help');
+    ctx.reply('Error. There is no such country. To see the list of available countries click here /help');
   }
 });
 bot.launch();
