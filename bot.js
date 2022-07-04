@@ -5,21 +5,27 @@ const M = require('telegraf-markup4');
 const COUNTRIES_LIST = require('./constant');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-bot.start((ctx) =>
+bot.start((ctx) => {
+const name = ctx.message.from.first_name;
+if (name == undefined) {
+  name = 'respect'
+  return name
+}
   ctx.reply(
     `
-Hello ${ctx.message.from.first_name}!
+Hello ${name}!
 Get statistics on coronavirus.
 Enter country name.
 The entire list of countries can be found by command /help
 `,
-M.keyboard.reply([
+    M.keyboard.reply([
       ['Belarus', 'Ukraine'],
       ['Poland', 'Germany'],
     ])
-  ));
+   } )
+);
 
-bot.help((ctx) => ctx.reply(COUNTRIES_LIST))
+bot.help((ctx) => ctx.reply(COUNTRIES_LIST));
 bot.on('text', async (ctx) => {
   let data = {};
   try {
@@ -33,7 +39,9 @@ Recovered: ${data[0][0].recovered}
     ctx.reply(formatData);
   } catch {
     console.log('Error');
-    ctx.reply('Error. There is no such country. To see the list of available countries click here /help');
+    ctx.reply(
+      'Error. There is no such country. To see the list of available countries click here /help'
+    );
   }
 });
 bot.launch();
